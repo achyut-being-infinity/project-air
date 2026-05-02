@@ -383,9 +383,9 @@ Rules:
     }))
 
     // Reject placeholder-style outputs so we don't render generic template questions.
-    const hasPlaceholderContent = mapped.some((q) => {
+    const hasPlaceholderContent = mapped.some((q: QuizQuestion) => {
       const questionLooksGeneric = /best option|plausible but|wrong choice|none of the above/i.test(q.question)
-      const choicesLookGeneric = q.choices.some((c) => /best option|plausible but|wrong choice|about\s+[a-z0-9\s()/-]+$/i.test(c))
+      const choicesLookGeneric = q.choices.some((c: string) => /best option|plausible but|wrong choice|about\s+[a-z0-9\s()/-]+$/i.test(c))
       return questionLooksGeneric || choicesLookGeneric || q.choices.length !== 4
     })
 

@@ -1,5 +1,4 @@
 import { useMemo, useRef, useState, useEffect } from 'react'
-import { GoogleGenerativeAI } from '@google/generative-ai'
 import './App.css'
 
 type AnalysisResponse = {
@@ -40,7 +39,7 @@ function App() {
   const [theme, setTheme] = useState<'dark' | 'light'>('dark')
   const [activeTab, setActiveTab] = useState('hero')
   const [feedbacks, setFeedbacks] = useState<Record<string, string>>({})
-  const [isGrading, setIsGrading] = useState(false)
+  const [, setIsGrading] = useState(false)
   const [gradingQuestion, setGradingQuestion] = useState<string | null>(null)
   const [questionCorrectness, setQuestionCorrectness] = useState<Record<string, boolean>>({})
   const [companionMessage, setCompanionMessage] = useState('')
@@ -122,30 +121,6 @@ function App() {
     } finally {
       setLoading(false)
     }
-  }
-
-  function generateQuestions(skills: string[], diff: 'easy' | 'medium' | 'hard' = 'hard') {
-    const picks = skills.length ? skills.slice(0, 5) : ['problem solving', 'communication', 'testing', 'apis', 'sql']
-    return picks.map((skill, index) => {
-      const question = diff === 'hard'
-        ? `Discuss a core theoretical challenge in ${skill} and choose the best explanation.`
-        : diff === 'medium'
-        ? `Which approach best addresses a common real-world concern in ${skill}?`
-        : `Which statement best describes ${skill}?`
-
-      return {
-        id: `q${index + 1}`,
-        skill,
-        question,
-        choices: [
-          `A best/most correct option about ${skill}`,
-          `A plausible but suboptimal option about ${skill}`,
-          `A wrong or outdated option about ${skill}`,
-          'None of the above',
-        ],
-        answerIndex: 0,
-      }
-    })
   }
 
   async function genPretest() {
