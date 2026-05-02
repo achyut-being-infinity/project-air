@@ -1,1 +1,2 @@
-@import "tailwindcss";
+/* Removed Tailwind import (not installed). Import the app styles instead. */
+@import "./App.css";
